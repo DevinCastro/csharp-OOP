@@ -22,7 +22,8 @@ namespace OOP
         public int stregnth;
         public int intelligence;
         public int dexterity;
-        private int health;
+        // changed to protected to access in child classes
+        protected int health;
 
         public int Health
         {
@@ -56,6 +57,34 @@ namespace OOP
             return target.Health;
         }
     }
+
+    public class Wizard : Human
+    {
+        public Wizard(string name) : base(name)
+        {
+            intelligence = 25;
+            health = 50;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public class Food
     {
@@ -341,7 +370,8 @@ namespace OOP
         static void Main(string[] args)
         {
 
-
+            Wizard devin = new Wizard("devin");
+            
 
 
 
