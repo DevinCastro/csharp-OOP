@@ -76,6 +76,12 @@ namespace OOP
             return target.health;
         }
 
+        public void Heal(Human target)
+        {
+            target.health += 10 * intelligence;
+        }
+
+
     }
 
     public class Assassin : Human
@@ -94,6 +100,11 @@ namespace OOP
             return target.health;
         }
 
+        public void Steal(Human target)
+        {
+            target.health -= 5;
+            health = +5;
+        }
 
     }
 
@@ -118,6 +129,12 @@ namespace OOP
             
             return target.health;
         }
+
+        public void Meditate()
+        {
+            health = 200;
+        }
+
     }
 
 
@@ -421,7 +438,7 @@ namespace OOP
         {
 
             Wizard devin = new Wizard("devin");
-            Human chrisy = new Human("christy");
+            Assassin chrisy = new Assassin("christy");
 
             devin.Attack(chrisy);
             
