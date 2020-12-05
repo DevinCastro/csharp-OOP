@@ -23,7 +23,7 @@ namespace OOP
         public int intelligence;
         public int dexterity;
         // changed to protected to access in child classes
-        protected int health;
+        public int health;
 
         public int Health
         {
@@ -51,7 +51,7 @@ namespace OOP
             health = Healthh;
         }
 
-        public int Attack(Human target)
+        public virtual int Attack(Human target)
         {
             target.health = target.health - (5 * stregnth);
             return target.Health;
@@ -60,15 +60,65 @@ namespace OOP
 
     public class Wizard : Human
     {
+
         public Wizard(string name) : base(name)
         {
             intelligence = 25;
             health = 50;
         }
+
+        public override int Attack(Human target)
+        {
+            
+            int dmg = 5 * intelligence;
+            target.health -= dmg;
+            health += dmg;
+            return target.health;
+        }
+
     }
 
+    public class Assassin : Human
+    {
+        public Assassin(string name) : base(name)
+        {
+            dexterity = 175;
+        }
+
+        public override int Attack(Human target)
+        {
+
+            int dmg = 5 * dexterity;
+            target.health -= dmg;
+            
+            return target.health;
+        }
 
 
+    }
+
+    public class Samurai : Human
+    {
+        public Samurai(string name) : base(name)
+        {
+            health = 200;
+        }
+
+
+        public override int Attack(Human target)
+        {
+
+            if (target.health <= 50)
+            {
+                target.health = 0;
+            } else
+            {
+                base.Attack(target);
+            }
+            
+            return target.health;
+        }
+    }
 
 
 
@@ -371,6 +421,10 @@ namespace OOP
         {
 
             Wizard devin = new Wizard("devin");
+            Human chrisy = new Human("christy");
+
+            devin.Attack(chrisy);
+            
             
 
 
