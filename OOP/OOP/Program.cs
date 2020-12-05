@@ -4,16 +4,16 @@ using System.Collections.Generic;
 namespace OOP
 {
 
-    public class Vehicle
-    {
-        public int numPassengers;
+    //public class Vehicle
+    //{
+    //    public int numPassengers;
 
-        // CLASS CONSTRUCTOR
-        public Vehicle(int num)
-        {
-            numPassengers = num;
-        }
-    }
+    //    // CLASS CONSTRUCTOR
+    //    public Vehicle(int num)
+    //    {
+    //        numPassengers = num;
+    //    }
+    //}
 
     public class Human
     {
@@ -149,7 +149,6 @@ namespace OOP
         }
 
     }
-
 
     public class Card
     {
@@ -290,6 +289,51 @@ namespace OOP
         }
 }
 
+    class Vehicle
+    {
+        public int NumPassengers;
+        public string Color;
+        public double Odometer;
+        // Say Vechicle has two overloaded constructors
+        // We will either need to pass up two values (int, string), from Car ...
+        public Vehicle(int numPas, string col)
+        {
+            NumPassengers = numPas;
+            Color = col;
+            Odometer = 0;
+        }
+        // Or just one string value.  
+        public Vehicle(string col)
+        {
+            NumPassengers = 5;
+            Color = col;
+            Odometer = 0;
+        }
+
+    }
+    // Defining a child class of Vehicle
+    class Car : Vehicle
+    {
+        // We can add members that are unique to Cars, things that won't describe ALL vehicles
+        public string Make;
+        public string Model;
+        // but when we define a constructor for Car, we need to satisfy any constructor requirements
+        // for at least ONE constructor on the parent Vehicle class
+        public Car(string color, string make, string model) : base(color)
+        {
+            Make = make;
+            Model = model;
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
     class Program
@@ -297,19 +341,25 @@ namespace OOP
         static void Main(string[] args)
         {
 
-            Deck myDeck = new Deck();
-            Console.WriteLine(myDeck.deal());
-            Console.WriteLine(myDeck.deal());
-            Console.WriteLine(myDeck.deal());
-            Console.WriteLine(myDeck.deal());
-
-            Console.WriteLine(myDeck.cards.Count);
-
-            myDeck.reset();
-            Console.WriteLine(myDeck.cards.Count);
 
 
 
+
+
+
+
+
+
+            //Deck myDeck = new Deck();
+            //Console.WriteLine(myDeck.deal());
+            //Console.WriteLine(myDeck.deal());
+            //Console.WriteLine(myDeck.deal());
+            //Console.WriteLine(myDeck.deal());
+
+            //Console.WriteLine(myDeck.cards.Count);
+
+            //myDeck.reset();
+            //Console.WriteLine(myDeck.cards.Count);
 
 
 
