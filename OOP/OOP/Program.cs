@@ -146,28 +146,57 @@ namespace OOP
 
 
 
-
-
-
-
-
-
-
-    public class Food
+    interface IConsumable
     {
-        public string Name;
-        public int Calories;
-        public bool IsSpicy;
-        public bool IsSweet;
+        string Name { get; set; }
+        int Calories { get; set; }
+        bool IsSpicy { get; set; }
+        bool IsSweet { get; set; }
+        string GetInfo();
+    }
 
-        public Food(string name, int cal, bool isSpicy, bool isSweet)
+    public class Food : IConsumable
+    {
+        public string Name { get; set; }
+        public int Calories { get; set; }
+        public bool IsSpicy { get; set; }
+        public bool IsSweet { get; set; }
+        public string GetInfo()
+        {
+            return $"{Name} (Food).  Calories: {Calories}.  Spicy?: {IsSpicy}, Sweet?: {IsSweet}";
+        }
+        public Food(string name, int calories, bool spicy, bool sweet)
         {
             Name = name;
-            Calories = cal;
-            IsSpicy = isSpicy;
-            IsSweet = isSweet;
+            Calories = calories;
+            IsSpicy = spicy;
+            IsSweet = sweet;
         }
     }
+
+    public class Drink : IConsumable
+    {
+        public string Name { get; set; }
+        public int Calories { get; set; }
+        public bool IsSpicy { get; set; }
+        public bool IsSweet { get; set; }
+
+        public string GetInfo()
+        {
+            return $"{Name} ; Calories {Calories} ; Spicy? {IsSpicy} ;  Sweet {IsSweet}. ";
+        }
+
+        public Drink(string name, int calories, bool spicy)
+        {
+            Name = name;
+            Calories = calories;
+            IsSpicy = spicy;
+            IsSweet = true;
+        }
+
+    }
+
+
 
     public class Buffet
     {
@@ -196,21 +225,79 @@ namespace OOP
 
     }
 
-    public class Ninja
-    {
-        private int calorieIntake;
-        public List<Food> FoodHistory = new List<Food>();
 
-        public void Cal()
+    // old ninja
+    //public class Ninja
+    //{
+    //    private int calorieIntake;
+    //    public List<Food> FoodHistory = new List<Food>();
+
+    //    public void Cal()
+    //    {
+    //        calorieIntake = 0;
+    //    }
+
+    //    public bool IsFull
+    //    {
+    //        get
+    //        {
+    //            if (calorieIntake > 1200)
+    //            {
+    //                return true;
+    //            }
+    //            else
+    //            {
+    //                return false;
+    //            }
+
+    //        }
+    //    }
+
+    //    public void Eat(Food food)
+    //    {
+    //        if (IsFull)
+    //        {
+    //            Console.WriteLine("This Ninja is Full.");
+    //        }
+    //        else
+    //        {
+    //            calorieIntake = calorieIntake + food.Calories;
+    //            FoodHistory.Add(food);
+    //            Console.WriteLine($"{food.Name}; Spicy:{food.IsSpicy}; Sweet:{food.IsSweet}.");
+    //            Console.WriteLine(calorieIntake);
+
+    //            for (int i = 0; i < FoodHistory.Count; i++)
+    //            {
+    //                Console.WriteLine(FoodHistory[i].Name);
+    //            }
+    //            Console.WriteLine(FoodHistory.Count);
+    //        }
+
+    //    }
+
+    //}
+
+    abstract class Ninja
+    {
+        protected int calorieIntake;
+        public List<IConsumable> ConsumptionHistory;
+        public Ninja()
         {
             calorieIntake = 0;
+            ConsumptionHistory = new List<IConsumable>();
         }
+        public abstract bool IsFull { get; }
+        public abstract void Consume(IConsumable item);
+    }
 
-        public bool IsFull
+    class SweetTooth : Ninja
+    {
+        // provide override for IsFull (Full at 1500 Calories)
+        public override bool IsFull
         {
             get
             {
-                if (calorieIntake > 1200)
+                if (calorieIntake >= 1500)
                 {
                     return true;
                 }
@@ -218,33 +305,34 @@ namespace OOP
                 {
                     return false;
                 }
-                
             }
         }
 
-        public void Eat(Food food)
+
+        public override void Consume(IConsumable item)
         {
+            // provide override for Consume
             if (IsFull)
             {
-                Console.WriteLine("This Ninja is Full.");
-            }
-            else
+                Console.WriteLine("Sorry I am full");
+            } else
             {
-                calorieIntake = calorieIntake + food.Calories;
-                FoodHistory.Add(food);
-                Console.WriteLine($"{food.Name}; Spicy:{food.IsSpicy}; Sweet:{food.IsSweet}.");
-                Console.WriteLine(calorieIntake);
-
-                for (int i = 0; i < FoodHistory.Count; i++)
-                {
-                    Console.WriteLine(FoodHistory[i].Name);
-                }
-                Console.WriteLine(FoodHistory.Count);
+                calorieIntake += item.Calories;
+                ConsumptionHistory.Add(item);
             }
+
 
         }
-
     }
+
+
+
+
+
+
+
+
+
 
     public class Card
     {
@@ -437,10 +525,25 @@ namespace OOP
         static void Main(string[] args)
         {
 
-            Wizard devin = new Wizard("devin");
-            Assassin chrisy = new Assassin("christy");
+            Food apple = new Food("Apple", 25, false, true);
+            Console.WriteLine(apple.GetInfo());
 
-            devin.Attack(chrisy);
+
+
+
+
+
+
+
+
+
+
+
+
+            //Wizard devin = new Wizard("devin");
+            //Assassin chrisy = new Assassin("christy");
+
+            //devin.Attack(chrisy);
             
             
 
